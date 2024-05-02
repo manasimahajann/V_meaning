@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+  font-family: Gulroy;
+}
+
+.multiline-text {
+  white-space: pre-wrap; 
+}
