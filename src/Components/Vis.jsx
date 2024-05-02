@@ -1,9 +1,10 @@
-import React from "react"
+import React, {useRef, useState, useEffect} from "react"
 import Move from "./Move"
 import {Tooltip} from "react-tooltip"
 import {v4 as uuidv4} from "uuid"
 import "../index.css"
-function V() {
+
+function Vis() {
 	const data = [
 		{
 			number: 1,
@@ -30,7 +31,7 @@ function V() {
 				3: "वषट्कार - यज्ञामध्ये वषट् ही क्रिया ज्याला उदेशून केटी जाते तो, किंवा यज्ञामध्ये केली जाणारी वषटूक्रियाहेच ज्याचे स्वरूप आहे, कारण यज्ञ हाच विष्णू आहे(यज्ञो वै विष्णुः) असे तैतरिय उपनिषदात सांगितले आहे.",
 				4: "भूतभव्यभवत्प्रभुः - भूत म्हणजे आलेले, भव्य म्हणजे भविष्यकाली अस्तित्वात येणारे आणि भवत् म्हणजेवर्तमानकाली असलेले अशा तिन्ही कालातील वस्तुजातावर ज्याची सत्ता आहे.",
 				5: "भूतकृत् - रजोगुणाचा आश्रय घेऊन ब्रह्मकदेवाच्या रूपाने जो भूताची म्हणजे उत्पन्न होणान्या सर्व वस्तूचीरचना करतो किंवा कृत् यामध्ये कृन्त धातु गृहीत धरला तर जो तमोगुणाचा आश्रय करून रुद्ररूपाने सर्व उत्पन्न्ालेल्याचा म्हणजे भूताचा नाश करतो, संहार करतो.",
-				6: "भूतभृत् - सत््वगुणांचा आश्रय करून जो सर्व भूतांचे भरण म्हणजेच धारण , पालनपोषण करतो.",
+				6: "भूतभृत् - सत््वगुणांचा आश्रय करून जो सर्व भूतांचे भरण म्हणजेच धारण , पालनपोषण करतो",
 				7: "भाव - निर्माण होणे, जन्माला येणे वा अस्तित्व असणे हे दोन्ही भ",
 			},
 		},
@@ -50,10 +51,29 @@ function V() {
 
 		return mappedValues
 	})
+
 	const completeData = data.map((verse, index) => ({
 		...verses[index],
 		verse: verse.verse,
 	}))
+
+	const [tooltipWidth, setTooltipWidth] = useState("auto")
+	const tooltipRef = useRef()
+
+	useEffect(() => {
+		// Update tooltip width when component mounts or window resizes
+		function updateTooltipWidth() {
+			if (tooltipRef.current) {
+				setTooltipWidth(tooltipRef.current.offsetWidth + "px")
+			}
+		}
+
+		updateTooltipWidth() // Initial calculation
+
+		window.addEventListener("resize", updateTooltipWidth)
+		return () => window.removeEventListener("resize", updateTooltipWidth)
+	}, [])
+
 	return (
 		<div>
 			{completeData.map((verseData, ind) => (
@@ -74,8 +94,11 @@ function V() {
 									key={"asdf" + wordIndex}
 									anchorSelect={`${"#ind" + word.id}`}
 									className={`${"#" + wordIndex}`}
+									style={{maxWidth: tooltipWidth}} // Set max width dynamically
 								>
-									<div className="multiline-text">{word.artha}</div>
+									<div className="multiline-text" ref={tooltipRef}>
+										{word.artha}
+									</div>
 								</Tooltip>
 							</>
 						) : (
@@ -91,8 +114,9 @@ function V() {
 									key={"asdf" + wordIndex}
 									anchorSelect={`${"#ind" + word.id}`}
 									className={`${"#" + wordIndex}`}
+									style={{maxWidth: tooltipWidth}} // Set max width dynamically
 								>
-									<div className="multiline-text tooltip-content">
+									<div className="multiline-text" ref={tooltipRef}>
 										{word.artha}
 									</div>
 								</Tooltip>
@@ -105,4 +129,4 @@ function V() {
 	)
 }
 
-export default V
+export default Vis
