@@ -5,11 +5,27 @@
 *{
   font-family: Gulroy;
 }
-
-.multiline-text {
+ 
+.tooltip-content { 
   white-space: pre-wrap; 
-}
-.tooltip-content {
   max-width: 300px; /* Adjust the maximum width as needed */
   word-wrap: break-word;
+}
+
+.list-item {
+  background-color: rgb(248, 229, 19);  
+  color: rgb(254, 77, 18); 
+  /* margin: 100px 200px;
+  padding: 10px; */ 
+  /* box-shadow: 10px 2px 2px orange, -10px 0 0 orange;  */
+  padding: 20px 50px 40px 50px;
+ 
+  width: 550px;
+  font-size: 1.15rem;
+  border-radius: .3em;
+  box-shadow: 2px 3px 5px 0 rgb(231, 81, 27);
+  cursor: pointer;
+  margin-top: 1em; 
+  max-width: 100%;
+  overflow: auto;
 }
