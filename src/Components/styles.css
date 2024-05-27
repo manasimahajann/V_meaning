@@ -1,0 +1,32 @@
+/* styles.css */
+
+/* Style for the container */
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh; /* Set the height to fill the viewport */
+}
+
+ 
+.item {
+  padding: 20px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: transform 0.3s; /* Add transition for smooth scaling effect */
+}
+
+/* Override blur effect for the selected item */
+.item.selected {
+  /* Remove blur effect */
+  transform: scale(1.2); /* Increase size to appear centered */
+}
+ 
+ 
+.main.blurred .item:not(.selected) {
+  background-color: rgba(238, 238, 238, 0.5); /* Grey background with some transparency */ 
+  filter: blur(5px);
+  position: relative;
+}
+
+ 
