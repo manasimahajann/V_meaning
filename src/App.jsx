@@ -1,10 +1,10 @@
 // App.js
 /* eslint-disable react/prop-types */
-import React, {useState} from "react"
+import {Link, Route, Routes} from "react-router-dom"
+import Home from "./Components/Home"
+import Show from "./Components/Show"
+import About from "./Components/About"
 import V from "./Components/V"
-import Card from "./Components/Card"
-import Cards from "./Components/Cards"
-import Form from "./Components/Form"
 
 const App = () => {
 	// const [users, setUsers] = useState([
@@ -35,6 +35,21 @@ const App = () => {
 		// 		</div>
 		// 	))}
 		// </div>
+
+		// <div className="pt=[5%] pl-[5%]">
+		// 	<nav className="m-2 p-2 flex justify-center gap-10">
+		// 		<Link to="/">Home</Link>
+		// 		<Link to="/about">About</Link>
+		// 		<Link to="/show">Show</Link>
+		// 	</nav>
+		// 	<hr />
+		// 	<Routes>
+		// 		<Route path="/" element={<Home />} />
+		// 		<Route path="/show" element={<Show />} />
+		// 		<Route path="/about" element={<About />} />
+		// 	</Routes>
+		// </div>
+
 		<V></V>
 
 		// <div className="w-full h-screen bg-zinc-200">

@@ -56,6 +56,7 @@ body{
 /* Style for each item */
 .item {
   width: 70vw;
+  height: 150px;
   cursor: pointer;
   transition: transform 0.3s; /* Add transition for smooth scaling effect */
   background-color: rgb(248, 229, 19);  
@@ -109,13 +110,13 @@ body{
 }
   .item {
     width: 90vw;
-    height: 16vh;
+    height: auto;
     cursor: pointer;
     transition: transform 0.3s; /* Add transition for smooth scaling effect */
     background-color: rgb(248, 229, 19);  
     color: rgb(254, 77, 18);  
     padding: 12px 20px 20px 20px; 
-    font-size: 1.25rem;
+    font-size: 1.10rem;
     border-radius: .3em;
     cursor: pointer; 
     max-width: 100%;
