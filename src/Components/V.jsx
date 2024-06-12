@@ -58,12 +58,15 @@ function V() {
 		// }
 	}, [])
 
-	console.log("read  22 " + realData)
 	const [selectedItem, setSelectedItem] = useState(null)
 
 	const [playing, setPlaying] = useState(false)
 	const [repeat, setRepeat] = useState(false)
 	const audioRef = useRef(null)
+
+	console.log("readdata " + realData)
+
+	// Use map function here
 
 	const verses = realData.map((verseData, index) => {
 		const words = verseData.verse.split(/\s+/)
@@ -215,89 +218,95 @@ function V() {
 	// 	number: index + 1,
 	// }))
 	return (
-		<div
-			onClick={() => handleContainerClick(realData)}
-			className={`main ${
-				(playing || repeat) && selectedItem !== null ? "blurred" : ""
-			}`}
-		>
-			<div className="list">
-				{realData.map((verseData, ind) => (
-					<div
-						key={ind}
-						className={`item ${
-							(playing || repeat) && selectedItem === ind ? "selected" : ""
-						}`}
-					>
-						<div key={ind}>
-							{verses[ind].map((word, wordIndex) =>
-								word.word.includes("।") ? (
-									<>
-										<a id={"ind" + word.id} key={wordIndex}>
-											{word.word}
-											<br />
-										</a>
-										{selectedItem === null ? (
-											<Tooltip
-												key={"asdf" + wordIndex}
-												anchorSelect={`${"#ind" + word.id}`}
-												className={`${"#" + wordIndex}`}
-											>
-												<div className="tooltip-content">{word.artha}</div>
-											</Tooltip>
-										) : null}
-									</>
-								) : (
-									<>
-										<a id={"ind" + word.id} key={wordIndex}>
-											{word.word}&nbsp;
-										</a>
-										{selectedItem === null ? (
-											<Tooltip
-												key={"asdf" + wordIndex}
-												anchorSelect={`${"#ind" + word.id}`}
-												className={`${"#" + wordIndex}`}
-											>
-												<div className="tooltip-content">{word.artha}</div>
-											</Tooltip>
-										) : null}
-									</>
-								)
-							)}
-							<div className="play-music">
-								{
-									/*!repeat && */ <span
-										onClick={() =>
-											handleMusicClick(verseData.number, ind, verseData.path)
-										}
-									>
-										{verseData.play ? <IoMdPause /> : <FaMusic />}
-									</span>
-								}
-								{
-									/*!playing && */ <span
-										onClick={() =>
-											handleRepeat(verseData.number, ind, verseData.path)
-										}
-										className="ml-5"
-									>
-										{verseData.repeat ? (
-											<IconContext.Provider
-												value={{color: "green", className: "global-class-name"}}
-											>
+		<>
+			<div id="heading">॥ श्रीविष्णुसहस्रनामस्तोत्रम् ॥</div>
+			<div
+				onClick={() => handleContainerClick(realData)}
+				className={`main ${
+					(playing || repeat) && selectedItem !== null ? "blurred" : ""
+				}`}
+			>
+				<div className="list">
+					{realData.map((verseData, ind) => (
+						<div
+							key={ind}
+							className={`item ${
+								(playing || repeat) && selectedItem === ind ? "selected" : ""
+							}`}
+						>
+							<div key={ind}>
+								{verses[ind].map((word, wordIndex) =>
+									word.word.includes("।") ? (
+										<>
+											<a id={"ind" + word.id} key={wordIndex}>
+												{word.word}
+												<br />
+											</a>
+											{selectedItem === null ? (
+												<Tooltip
+													key={"asdf" + wordIndex}
+													anchorSelect={`${"#ind" + word.id}`}
+													className={`${"#" + wordIndex}`}
+												>
+													<div className="tooltip-content">{word.artha}</div>
+												</Tooltip>
+											) : null}
+										</>
+									) : (
+										<>
+											<a id={"ind" + word.id} key={wordIndex}>
+												{word.word}&nbsp;
+											</a>
+											{selectedItem === null ? (
+												<Tooltip
+													key={"asdf" + wordIndex}
+													anchorSelect={`${"#ind" + word.id}`}
+													className={`${"#" + wordIndex}`}
+												>
+													<div className="tooltip-content">{word.artha}</div>
+												</Tooltip>
+											) : null}
+										</>
+									)
+								)}
+								<div className="play-music">
+									{
+										/*!repeat && */ <span
+											onClick={() =>
+												handleMusicClick(verseData.number, ind, verseData.path)
+											}
+										>
+											{verseData.play ? <IoMdPause /> : <FaMusic />}
+										</span>
+									}
+									{
+										/*!playing && */ <span
+											onClick={() =>
+												handleRepeat(verseData.number, ind, verseData.path)
+											}
+											className="ml-5"
+										>
+											{verseData.repeat ? (
+												<IconContext.Provider
+													value={{
+														color: "green",
+														className: "global-class-name",
+													}}
+												>
+													<BsArrowRepeat />
+												</IconContext.Provider>
+											) : (
 												<BsArrowRepeat />
-											</IconContext.Provider>
-										) : (
-											<BsArrowRepeat />
-										)}
-									</span>
-								}
+											)}
+										</span>
+									}
+								</div>
 							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 
