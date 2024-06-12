@@ -306,6 +306,7 @@ function V() {
 					))}
 				</div>
 			</div>
+			<div className="item">सर्वप्रहरणायुध ॐ नम इति ।</div>
 		</>
 	)
 }
