@@ -418,7 +418,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/21.m4a"
    },
    {
       "number":"22",
@@ -439,7 +439,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/22.m4a"
    },
    {
       "number":"23",
@@ -458,7 +458,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/23.m4a"
    },
    {
       "number":"24",
@@ -478,7 +478,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/24.m4a"
    },
    {
       "number":"25",
@@ -496,7 +496,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/25.m4a"
    },
    {
       "number":"26",
@@ -517,7 +517,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/26.m4a"
    },
    {
       "number":"27",
@@ -536,7 +536,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/27.m4a"
    },
    {
       "number":"28",
@@ -556,7 +556,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/28.m4aw"
    },
    {
       "number":"29",
@@ -576,7 +576,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/29.m4a"
    },
    {
       "number":"30",
@@ -594,7 +594,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/30.m4a"
    },
    {
       "number":"31",
@@ -611,7 +611,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/31.m4a"
    },
    {
       "number":"32",
@@ -631,7 +631,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/32.m4a"
    },
    {
       "number":"33",
@@ -650,7 +650,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/33.m4a"
    },
    {
       "number":"34",
@@ -670,7 +670,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/34.m4a"
    },
    {
       "number":"35",
@@ -689,7 +689,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/35.m4a"
    },
    {
       "number":"36",
@@ -708,7 +708,7 @@
       },
       "play":false,
       "repeat":false,
-      "path":"test//neew"
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/36.m4a"
    },
    {
       "number":"37",
@@ -1439,7 +1439,7 @@
       "number":"74",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/74.m4a",
       "verse":"मनोजवस् तीर्थकरो वसुरेता वसुप्रदः ।\nवसुप्रदो वासुदेवो वसुर् वसुमना हविः ॥७४॥",
       "artha":{
          "1":"मनोजवः - मनाप्रमाणे शीघ्र वेग असलेला.",
@@ -1458,7 +1458,7 @@
       "number":"75",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/75.m4a",
       "verse":"सद्गति: सत्कृति: सत्ता सद्भूतिः सत्परायणः ।\nशूरसेनो यदुश्रेष्ठः सन्निवास सुयामुन: ॥७५॥",
       "artha":{
          "1":"सद्गतिः - योगींना मोक्ष देणारी, उत्कृष्ट गतिचे मोक्ष.",
@@ -1477,7 +1477,7 @@
       "number":"76",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/76.m4a",
       "verse":"भूतावासो वासुदेवः सर्वासुनिलयो ऽनलः ।\nदर्पहा दर्पदो दृप्तो दुर्धरो ऽथा पराजितः ॥७६॥",
       "artha":{
          "1":"भूतावासः - सर्व भूतांमध्ये रहणारा.",
@@ -1497,7 +1497,7 @@
       "number":"77",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/77.m4a",
       "verse":"विश्वमूर्तिर् म​हामूर् दीप्तमूर्तिर् रमूर्तिमान् ।\nअनेकमूर्तिर् रव्यक्तः शतमूर्ति: शताननः ॥७७॥",
       "artha":{
          "1":"विश्वमूर्ति:- विश्व हे ज्याची मूर्ति आहे.",
@@ -1515,7 +1515,7 @@
       "number":"78",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/78.m4a",
       "verse":"एको नैकः सवः कः किं यत् तत् पदमनुत्तमम् ।\nलोकबन्धुर् लोकनाथो माधवो भक्तवत्सलः ॥७८॥",
       "artha":{
          "1":"एक: - परमार्थत: ज्याच्यामध्ये भेद दाखवता येत नाहीत. किंवा ज्याच्याव्यतिरिक्त वेगळे असे काही नाहीच.",
@@ -1537,7 +1537,7 @@
       "number":"79",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/79.m4a",
       "verse":"सुवर्णवर्णो हेमांगो वरांगश् चन्ददांगदी ।\nवीरहा विषमः शून्यो घृताशी रचलश् च​लः ॥७९॥",
       "artha":{
          "1":"सुवर्णवर्ण: - ज्याची अंगकांति सुवर्णाप्रमाणे आहे.",
@@ -1557,7 +1557,7 @@
       "number":"80",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/80.m4a",
       "verse":"अमानी मान्यदो मान्यो लोकस्वामी त्रिलोकधृक् ।\nसुमेधा मेधजो धन्यः सत्यमेधा धराधरः ॥८०॥",
       "artha":{
          "1":"अमानी - अभिमान नसलेला. मानसन्मानाची इच्छा नसलेला. भगवान शुद्ध, ज्ञानस्वरूप असल्यामुळे अनात्म, जड, मायिक अशा वस्तूंविषयी त्याला अभिमान नसतो.",
@@ -1577,7 +1577,7 @@
       "number":"81",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/81.m4a",
       "verse":"तेजोवृषो द्युतिधरः सर्वशस्त्रभृतांवरः ।\nप्रग्रहो निग्रहो व्यग्रो नैकशृंगो गदाग्रजः ॥८१॥",
       "artha":{
          "1":"तेजोवृषः - आदित्यरूपाने सूर्यरूपाने तेजाची जलाची वृष्टी करणारा.",
@@ -1595,7 +1595,7 @@
       "number":"82",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/82.m4a",
       "verse":"चतुर्मूर्तिश् च​तुर्बाहुश् चतुर्व्यूहश् चतुर्गतिः ।\nचतुरात्मा चतुर्भावश् चतुर्वेदवि देकपात् ॥८२॥",
       "artha":{
          "1":"चतुमूर्ति: - विराट, सूत्रात्मा, अव्याकृत आणि तुरीय या भगवंताच्या चार मूर्ति आहेत.",
@@ -1613,7 +1613,7 @@
       "number":"83",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/83.m4a",
       "verse":"समावर्तो निवृत्तात्मा दुर्जयो दुरतिक्रमः ।\nदुर्लभो दुर्गमो दुर्गो दुरावासो दुरारिहा ॥८३॥",
       "artha":{
          "1":"समावर्तः - संसारचक्राला चांगल्या रीतीने फिरविणारा.",
@@ -1632,7 +1632,7 @@
       "number":"84",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/84.m4a",
       "verse":"शुभांगो लोकसारंगः सुतन्तुस् तन्तुवर्धनः ।\nइंद्रकर्मा महाकर्मा कृतकर्मा कृतागमः ॥८४॥",
       "artha":{
          "1":"शुभाङ्गः - सुंदर कल्याणकर देह धारण करणारा.",
@@ -1650,7 +1650,7 @@
       "number":"85",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/85.m4a",
       "verse":"उद्भवः सुन्दरः सुन्दो रत्ननाभः सुलोचनः ।\nअर्को वाजसनः श्रृंगी जयन्तः सर्वविज्जयी ॥८५॥",
       "artha":{
          "1":"उद्भवः - उत्कृट जन्म स्वतःच्या इच्छेने धारण करणारा.",
@@ -1670,7 +1670,7 @@
       "number":"86",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/86.m4a",
       "verse":"सुवर्णबिन्दु रक्षोभ्यः सर्ववागीश्वरेश्वरः ।\nमहाहृदो महागर्तो महाभूतो महानिधिः ॥८६॥",
       "artha":{
          "1":"सुवर्णबिंदुः - ज्याचे अवयव सोन्यासारखे आहेत.",
@@ -1687,7 +1687,7 @@
       "number":"87",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/87.m4a",
       "verse":"कुमुदः कुंदरः कुन्दः पर्जन्यः पावनो ऽनिलः ।\nअमृतांशो ऽमृतवपुः सर्वज्ञः सर्वतोमुखः ॥८७॥",
       "artha":{
          "1":"कुमुदः - पृथ्वीला आनंदित करणारा.",
@@ -1707,7 +1707,7 @@
       "number":"88",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/88.m4a",
       "verse":"सुलभः सुव्रतः सिद्धः शत्रुजित् शत्रुतापनः ।\nन्यग्रोधो दुम्बरो ऽश्वत्थश् चाणूरान्ध्रनिषूदनः ॥८८॥",
       "artha":{
          "1":"सुलभः - मिळविण्यास सोपा. भक्तीने अर्पण केलेल्या पानफुलांनेही जो प्रसन्न होतो असा.",
@@ -1726,7 +1726,7 @@
       "number":"89",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/89.m4a",
       "verse":"सहस्रार्चिः सप्तजिह्वः सप्तैधाः सप्तवाहनः ।\nअमूर्ति रनघो ऽचिन्त्यो भयकृद् भयनाशनः ॥८९॥",
       "artha":{
          "1":"सहस्रार्चिः - सहस्रावधी किरणे असलेला.",
@@ -1745,7 +1745,7 @@
       "number":"90",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/90.m4a",
       "verse":"अणुर् बृहत् कृशः स्थूलो गुणभृन् निर्गुणो महान् ।\nअधृतः स्वधृतः स्वास्यः प्राग्वंशो वंशवर्धनः ॥९०॥",
       "artha":{
          "1":"अणुः - परिणामाने अत्यंत सूक्ष्म. कोणत्याही द्रव्याच्या अंतिम विभागाला अणु असे म्हणतात. सर्व वस्तु शेवटी भगवद्रूप असल्याने हे नाव प्राप्त झाले आहे.",
@@ -1767,7 +1767,7 @@
       "number":"91",
       "play":false,
       "repeat":false,
-      "path":"",
+      "path":"https://vsmusic.s3.us-east-2.amazonaws.com/91.m4a",
       "verse":"भारभृत् कथितो योगी योगीशः सर्वकामदः ।\nआश्रमः श्रमणः क्षामः सुपर्णो वायुवाहनः ॥९१॥",
       "artha":{
          "1":"भारभृत् - भार वाहणारा, विश्वाचे ओझे वागविणारा, सर्वांचे कल्याण करण्याचे दायित्व स्वीकारणारा.",
@@ -1787,7 +1787,7 @@
       "number":"92",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/92.m4a",
       "verse":"धनुर्धरो धनुर्वेदो दण्डो दमयिता दमः ।\nअपराजितः सर्वसहो नियन्ता ऽनियमो ऽयमः ॥९२॥",
       "artha":{
          "1":"धनुर्धरः - धनुष्य धारण करणारा.",
@@ -1807,7 +1807,7 @@
       "number":"93",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/93.m4a",
       "verse":"सत्त्ववान् सात्त्विकः सत्यः सत्यधर्मपरायणः ।\nअभिप्रायः प्रियार्हो ऽर्हः प्रियकृत् प्रीतिवर्धनः ॥९३॥",
       "artha":{
          "1":"सत्त्ववान् - शौर्य, धैर्य, सोशिकपणा इत्यादींना सत्त्व असे म्हरतात. त्यांनी जो युक्त आहे.",
@@ -1826,7 +1826,7 @@
       "number":"94",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/94.m4a",
       "verse":"विहायसगतिज् र्ज्योतिः सुरुचिर् हुतभुग् विभुः ।\nरविर् विरोचनः सूर्यः सविता रविलोचनः ॥९४॥",
       "artha":{
          "1":"विहायसगतिः - आकाशही ज्याच्यामध्ये लीन होते किंवा आकाश हे ज्याचे आश्रयस्थान आहे.",
@@ -1846,7 +1846,7 @@
       "number":"95",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/95.m4a",
       "verse":"अनन्तो हुतभुग् भोक्ता सुखदो नैकजो ऽग्रजः ।\nअनिर्विण्णः सदामर्षी लोकाधिष्ठान मद्भुतः ॥९५॥",
       "artha":{
          "1":"अनन्तः - शे हे ज्याचे स्वरूप आहे. जो निःसीम, अमर्याद आहे.",
@@ -1866,7 +1866,7 @@
       "number":"96",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/96.m4a",
       "verse":"सनात् सनातनतमः कपिलः कपि रप्ययः ।\nस्वस्तिदः स्वस्तिकृत् स्वस्ति स्वस्तिभुक् स्वस्तिदक्षिणः ॥९६॥",
       "artha":{
          "1":"सनात् - अनंत कालापर्यंत टिकणारा, चिरकालीन.",
@@ -1886,7 +1886,7 @@
       "number":"97",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/97.m4a",
       "verse":"अरौद्रः कुण्डली चक्री विक्रम्यू र्जितशासनः ।\nशब्दातिगः शब्दसहः शिशिरः शर्वरीकरः ॥९७॥",
       "artha":{
          "1":"अरौद्रः - भयानक नसलेला. कर्म, राग, आसक्ती आणि क्रोध यांना रौद्र म्हणतात. हे भाव ज्याच्याजवळ नाहीत असा.",
@@ -1905,7 +1905,7 @@
       "number":"98",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/98.m4a",
       "verse":"अक्रूरः पेशलो दक्षो दक्षिणः क्षमिणांवरः ।\nविद्वत्तमो वीतभयः पुण्यश्रवणकीर्तनः ॥९८॥",
       "artha":{
          "1":"अक्रूरः - क्रूरताविरहित. दुष्टांचा संहार करण्यामागे क्रूरता हा हेतू नसून सज्जनरक्षण व धर्मसंस्थापन हा हेतू असतो.",
@@ -1923,7 +1923,7 @@
       "number":"99",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/99.m4a",
       "verse":"उत्तारणो दुष्कृतिहा पुण्यो दुःस्वप्ननाशनः ।\nवीरहा रक्षणः सन्तो जीवनः पर्यवस्थितः ॥९९॥",
       "artha":{
          "1":"उत्तारणः - तारून नेणारा. संसारातून व संकटातून पार नेणारा.",
@@ -1942,7 +1942,7 @@
       "number":"100",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/100.m4a",
       "verse":"अनन्तरूपो ऽनन्तश्रीर् जितमन्युर् भयापहः ।\nचतुरस्रो गभीरात्मा विदिशो व्यादिशो दिशः ॥१००॥",
       "artha":{
          "1":"अनन्तरूपः - असंख्य रूपाने प्रगट होणारा.",
@@ -1961,7 +1961,7 @@
       "number":"101",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/101.m4a",
       "verse":"अनादिर् भूर्भुवो लक्ष्मीः सुवीरो रुचिरांगदः ।\nजननो जनजन्मादिर् भीमो भीमपराक्रमः ॥१०१॥",
       "artha":{
          "1":"अनादिः - सर्वांचे कारण असल्यामुळे ज्याचा आरंभ झाला असे ज्याच्याविषयी म्हरता येत नाही. आरंभरहित, उत्पत्तिरहित.",
@@ -1980,7 +1980,7 @@
       "number":"102",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/102.m4a",
       "verse":"आधारनिलयो ऽधाता पुष्पहासः प्रजागरः ।\nऊर्ध्वगः सत्पथाचारः प्राणदः प्रणवः पणः ॥१०२॥",
       "artha":{
          "1":"आधारनिलयः - आधार देणान्या पृथ्वीसारख्या वस्तूंचाही आश्रयस्थान असलेला.",
@@ -1999,7 +1999,7 @@
       "number":"103",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/103.m4a",
       "verse":"प्रमाणं प्राणनिलयः प्राणभृत् प्राणजीवनः ।\nतत्त्वं तत्त्ववि देकात्मा जन्ममृत्युजरातिगः ॥१०३॥",
       "artha":{
          "1":"प्रमाणं - सत्यज्ञानाच्या साधनास प्रमाण म्हरतात. ते ज्याचे स्वरूप आहे.",
@@ -2017,7 +2017,7 @@
       "number":"104",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/104.m4a",
       "verse":"भूर्भुवःस्वस्तरुस् तारः सपिता प्रपितामहः ।\nयज्ञो यज्ञपतिर् यज्वा यज्ञाङ्गो यज्ञवाहनः ॥१०४॥",
       "artha":{
          "1":"भूर्भुवः स्वस्तरुः - भूः, भवः, स्वः या तीन व्याहृति वेदत्रयांचे सार म्हणून मानल्या जातात. यांच्या सहाय्याने लोक तरून जातात, उद्धरून जातात. म्हणून उद्धरून नेणान्या व्याहृति हे ज्याचे स्वरूप आहे किंवा भूः, भुवः, स्वः हे तीन शब्द तीन लोकांचे प्रतिक म्हणून मानले जातात. या तीन शाखांनी विस्तारलेला वृक्ष हे ज्याचे स्वरूप आहे असा.",
@@ -2036,7 +2036,7 @@
       "number":"105",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/105.m4a",
       "verse":"यज्ञभृद् यज्ञकृद् यज्ञी यज्ञभुग् यज्ञसाधनः । यज्ञान्तकृद् यज्ञगुह्यम् अन्न मन्नाद एव च ॥१०५॥",
       "artha":{
          "1":"यज्ञभृत् - यज्ञाचे धारण करणारा.",
@@ -2057,7 +2057,7 @@
       "number":"106",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/106.m4a",
       "verse":"आत्मयोनिः स्वयंजातो वैखानः सामगायनः ।\nदेवकीनन्दनः स्रष्टा क्षितीश: पापनानः ॥१०६॥",
       "artha":{
          "1":"आत्मयोनिः - स्वतःच स्वतः चे उत्पत्तिस्थान असलेला.",
@@ -2075,7 +2075,7 @@
       "number":"107",
       "play":false,
       "repeat":false,
-      "path":"",
+"path":"https://vsmusic.s3.us-east-2.amazonaws.com/107.m4a",
       "verse":"शंखभृन् नन्दकी चक्री शाङ्गधन्वा गदाधरः ।\nरथांगपाणि रक्षोभ्यः सर्वप्रहरणायुधः ॥१०७॥",
       "artha":{
          "1":"शंखभृत् - पांचजन्य नावाचा शंख धारण करणारा.",
@@ -2089,10 +2089,10 @@
          "9":"सर्वप्रहरणायुध - आघात करून शत्रूचा निःपात करणारी सर्व प्रकारची आयुधे ज्याने धारण केली आहेत असा."
     } },
       {
-         "number":"107",
+         "number":"108",
          "play":false,
          "repeat":false,
-         "path":"",
+         "path":"https://vsmusic.s3.us-east-2.amazonaws.com/108.m4a",
          "verse":"सर्वप्रहरणायुध ॐ नम इति ।\n",
          "artha":{ 
          }

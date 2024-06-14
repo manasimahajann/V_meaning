@@ -51,8 +51,6 @@ function V() {
 	}
 	useEffect(() => {
 		fetchData()
-
-		console.log("Component is created")
 		// return () => {
 		// 	console.log("Service component is deleted")
 		// }
@@ -63,8 +61,6 @@ function V() {
 	const [playing, setPlaying] = useState(false)
 	const [repeat, setRepeat] = useState(false)
 	const audioRef = useRef(null)
-
-	console.log("readdata " + realData)
 
 	// Use map function here
 
@@ -141,10 +137,10 @@ function V() {
 		})
 
 		if (playing === false && repeat === false) {
-			console.log(" playing...")
+			// console.log(" playing...")
 			playAudio(path)
 		} else {
-			console.log("stop playing...")
+			// console.log("stop playing...")
 			setPlaying(false)
 			setRepeat(false)
 			stopAudio(path)
