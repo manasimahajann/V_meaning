@@ -2,7 +2,8 @@ import React, {useCallback, useEffect, useState} from "react"
 import Move from "./Move"
 import {Tooltip} from "react-tooltip"
 import {v4 as uuidv4} from "uuid"
-import data from "../Media/data1.json"
+import data from "../../public/Media/data1.json"
+
 import {FaMusic} from "react-icons/fa"
 import {IoMdPause} from "react-icons/io"
 import {BsArrowRepeat} from "react-icons/bs"
@@ -38,26 +39,26 @@ function V() {
 	// ]
 
 	const [realData, setRealdata] = useState([])
-	useEffect(() => {
-		setRealdata(JSON.parse(JSON.stringify(data)))
-	}, [])
-	// const api =
-	// 	"https://drive.google.com/uc?export=download&id=11Q5prdP0jz40Ate-UNy_EU07KiS6UcMC"
 
-	// const fetchData = async () => {
-	// 	await axios
-	// 		.get(api)
-	// 		.then((info) => {
-	// 			setRealdata(JSON.parse(JSON.stringify(info.data)))
-	// 		})
-	// 		.catch((err) => console.log(err))
-	// }
 	// useEffect(() => {
-	// 	fetchData()
-	// 	// return () => {
-	// 	// 	console.log("Service component is deleted")
-	// 	// }
+	// 	setRealdata(JSON.parse(JSON.stringify(data)))
 	// }, [])
+	const api = "https://testapi1test.blob.core.windows.net/media/data1.json"
+
+	const fetchData = async () => {
+		await axios
+			.get(api)
+			.then((info) => {
+				setRealdata(JSON.parse(JSON.stringify(info.data)))
+			})
+			.catch((err) => console.log(err))
+	}
+	useEffect(() => {
+		fetchData()
+		// return () => {
+		// 	console.log("Service component is deleted")
+		// }
+	}, [])
 
 	const [selectedItem, setSelectedItem] = useState(null)
 
