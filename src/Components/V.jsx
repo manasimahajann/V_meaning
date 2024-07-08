@@ -2,8 +2,6 @@ import React, {useCallback, useEffect, useState} from "react"
 import Move from "./Move"
 import {Tooltip} from "react-tooltip"
 import {v4 as uuidv4} from "uuid"
-import data from "../../public/Media/data1.json"
-
 import {FaMusic} from "react-icons/fa"
 import {IoMdPause} from "react-icons/io"
 import {BsArrowRepeat} from "react-icons/bs"
