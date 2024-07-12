@@ -38,7 +38,7 @@ body{
   
 }
 .container.notblurred .item.selected{
-  background-color: red; 
+ 
   /* Remove blur effect */ 
   /* Remove zoom effect */
   transform: none; /* Remove zoom effect */
@@ -67,14 +67,49 @@ body{
 
 }
 
-/* Apply blur effect to the container when an item is selected */
-.container.blurred .item:not(.selected) {
+  
+
+.fullscreen { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;  
+  
+}
+
+.lyrics.blurred{
   background-color: rgba(238, 238, 238, 0.5); /* Grey background with some transparency */ 
   filter: blur(5px);
   position: relative;
 }
 
- 
+.lyrics {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Style for each item */
 .item {
@@ -120,6 +155,7 @@ body{
   position: relative;
 }
 
+ 
  
 /* Responsive design */
 @media (max-width: 600px) {

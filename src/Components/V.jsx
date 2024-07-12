@@ -8,6 +8,7 @@ import {IconContext} from "react-icons"
 import "../index.css"
 import {useRef} from "react"
 import axios from "axios"
+import FullVishnuSahasranam from "./FullVishnuSahasranam"
 
 function V() {
 	const [realData, setRealdata] = useState([])
@@ -167,7 +168,7 @@ function V() {
 
 	return (
 		<>
-			<div id="heading">॥ श्रीविष्णुसहस्रनामस्तोत्रम् ॥</div>
+			<FullVishnuSahasranam data={realData} />
 			<div
 				onClick={() => handleContainerClick(realData)}
 				className={`main ${
