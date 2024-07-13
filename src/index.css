@@ -69,6 +69,16 @@ body{
 
   
 
+
+
+
+
+
+
+
+
+
+
 .fullscreen { 
   display: flex;
   justify-content: center;
@@ -91,31 +101,12 @@ body{
 .lyrics {
   text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 /* Style for each item */
 .item {
-  width: 70vw;
-  height: 160px;
-  cursor: pointer;
+  width: 90vw;
+  height: 160px; 
   transition: transform 0.3s; /* Add transition for smooth scaling effect */
   background-color: rgb(248, 229, 19);  
   color: rgb(254, 77, 18);  
@@ -125,12 +116,12 @@ body{
   box-shadow: 2px 3px 5px 0 rgb(231, 81, 27);
   cursor: pointer;
   margin-top: 1em; 
-  max-width: 100%;
-  overflow: auto; 
+  max-width: 100%; 
   text-align: left;
   display: flex;
   align-content: center; 
   justify-content: center;
+   overflow: hidden; 
 }
  
  
@@ -160,7 +151,7 @@ body{
 /* Responsive design */
 @media (max-width: 600px) {
   body{
-    overflow-x: hidden ;
+    overflow: hidden ; 
   }
 .container{
   flex: flex-start;
@@ -175,7 +166,7 @@ body{
     background-color: rgb(248, 229, 19);  
     color: rgb(254, 77, 18);  
     padding: 12px 20px 20px 20px; 
-    font-size: 1.15rem;
+    font-size: 1.12rem;
     border-radius: .3em;
     cursor: pointer; 
     max-width: 100%;

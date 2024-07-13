@@ -168,6 +168,8 @@ function V() {
 
 	return (
 		<>
+			<div id="heading">॥ श्रीविष्णुसहस्रनामस्तोत्रम् ॥</div>
+
 			<FullVishnuSahasranam data={realData} />
 			<div
 				onClick={() => handleContainerClick(realData)}
