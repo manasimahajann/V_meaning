@@ -1,4 +1,3 @@
-import FullVishnuSahasranam from "./Components/FullVishnuSahasranam"
 import V from "./Components/V"
 
 const App = () => {

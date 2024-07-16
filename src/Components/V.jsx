@@ -10,22 +10,11 @@ import {useRef} from "react"
 import axios from "axios"
 import FullVishnuSahasranam from "./FullVishnuSahasranam"
 
+const dbName = "AudioDatabase"
+const dbVersion = 1
+let db
 function V() {
 	const [realData, setRealdata] = useState([])
-
-	const api = "https://testapi1test.blob.core.windows.net/media/data1.json"
-
-	const fetchData = async () => {
-		await axios
-			.get(api)
-			.then((info) => {
-				setRealdata(JSON.parse(JSON.stringify(info.data)))
-			})
-			.catch((err) => console.log(err))
-	}
-	useEffect(() => {
-		fetchData()
-	}, [])
 
 	const [selectedItem, setSelectedItem] = useState(null)
 
@@ -33,6 +22,53 @@ function V() {
 	const [repeat, setRepeat] = useState(false)
 	const audioRef = useRef(null)
 
+	const [isDbOpen, setIsDbOpen] = useState(false)
+
+	useEffect(() => {
+		openDatabase()
+			.then(() => setIsDbOpen(true))
+			.catch((error) => console.error("Error opening database:", error))
+		// Check if data exists in local storage
+
+		const cachedData = localStorage.getItem("cachedData")
+
+		if (cachedData) {
+			// Parse the cached data
+			setRealdata(JSON.parse(cachedData))
+		} else {
+			// Fetch and save data if not cached
+			fetch(
+				"https://testapi1test.blob.core.windows.net/media/VishnuSahasranam.json"
+			)
+				.then((response) => response.json())
+				.then((data) => {
+					setRealdata(data)
+					// Store data in local storage
+					localStorage.setItem("cachedData", JSON.stringify(data))
+				})
+				.catch((error) => console.error("Fetch error:", error))
+		}
+	}, [])
+	// Open or create IndexedDB database
+	const openDatabase = () => {
+		return new Promise((resolve, reject) => {
+			const request = indexedDB.open(dbName, dbVersion)
+
+			request.onerror = (event) =>
+				reject(`IndexedDB error: ${event.target.errorCode}`)
+
+			request.onsuccess = (event) => {
+				db = event.target.result
+
+				resolve(db)
+			}
+
+			request.onupgradeneeded = (event) => {
+				db = event.target.result
+				db.createObjectStore("audioChunks", {keyPath: "id"})
+			}
+		})
+	}
 	// Use map function here
 	const verses = realData.map((verseData, index) => {
 		const words = verseData.verse.split(/\s+/)
@@ -49,11 +85,72 @@ function V() {
 		return mappedValues
 	})
 
+	// Fetch, save, and play audio from URL
+	const saveAndPlayAudio = async (id, url, repeat = false) => {
+		try {
+			if (!isDbOpen || !db) {
+				console.log("Error initializing the db")
+			}
+
+			const transaction = db.transaction(["audioChunks"], "readwrite")
+			const store = transaction.objectStore("audioChunks")
+			const request = store.get(id)
+
+			request.onsuccess = async (event) => {
+				if (event.target.result) {
+					if (id !== "111") {
+						//coming from FV
+						// Audio already exists, play it
+						playAudio(event.target.result.audioData, repeat)
+					}
+				} else {
+					// Fetch audio, store it, and then play it
+					const response = await fetch(url)
+					if (response.ok) {
+						const audioData = await response.arrayBuffer()
+						const newTransaction = db.transaction(["audioChunks"], "readwrite")
+						const newStore = newTransaction.objectStore("audioChunks")
+						newStore.put({id, audioData})
+
+						//FV is coming from fullVS file where if true we just want to save the data to indexdb
+						newTransaction.oncomplete = () => playAudio(audioData, repeat)
+						newTransaction.onerror = (event) =>
+							console.error("IndexedDB write error:", event.target.error)
+					}
+				}
+			}
+			request.onerror = (event) =>
+				console.error("IndexedDB read error:", event.target.error)
+		} catch (error) {
+			console.error("Error fetching audio:", error)
+		}
+	}
+
+	const playAudio = (audioData, repeat) => {
+		const audioBlob = new Blob([audioData], {type: "audio/m4a"})
+		const audioUrl = URL.createObjectURL(audioBlob)
+		audioRef.current = new Audio(audioUrl)
+
+		if (repeat) {
+			audioRef.current.loop = true
+		} else {
+			//when the audio ends
+			audioRef.current.onended = function () {
+				setRealdata(
+					realData.map((verseData, index) => {
+						return {...verseData, play: false}
+					})
+				)
+			}
+		}
+		audioRef.current
+			.play()
+			.catch((error) => console.error("Error playing audio:", error))
+	}
 	const handleRepeat = (versenumber, ind, path) => {
 		setPlaying(false)
 		setRepeat(!repeat)
 		handleItemClick(ind)
-		// let path = `src/media/${ind + 1}.m4a`
 
 		//when both the buttons are pressed make sure that play stops and repeat plays
 		//on and off if button is pressed multiple times
@@ -67,8 +164,9 @@ function V() {
 		})
 
 		if (repeat === false && playing === false) {
-			//console.log(" repeating...")
-			playAudio(path, true)
+			// playAudio(path, true)
+
+			saveAndPlayAudio(ind, path, true)
 		} else {
 			//console.log("stop repeating...")
 			setPlaying(false)
@@ -97,8 +195,7 @@ function V() {
 		})
 
 		if (playing === false && repeat === false) {
-			// console.log(" playing...")
-			playAudio(path)
+			saveAndPlayAudio(ind, path, false)
 		} else {
 			// console.log("stop playing...")
 			setPlaying(false)
@@ -107,25 +204,6 @@ function V() {
 		}
 	}
 
-	const playAudio = (path, repeat = false) => {
-		audioRef.current = new Audio(path)
-
-		if (repeat) {
-			audioRef.current.loop = true
-		} else {
-			//when the audio ends
-			audioRef.current.onended = function () {
-				setRealdata(
-					realData.map((verseData, index) => {
-						return {...verseData, play: false}
-					})
-				)
-			}
-		}
-		audioRef.current
-			.play()
-			.catch((error) => console.log("Error playing audio:", error))
-	}
 	const stopAudio = () => {
 		if (audioRef.current) {
 			audioRef.current.pause()
@@ -170,7 +248,11 @@ function V() {
 		<>
 			<div id="heading">॥ श्रीविष्णुसहस्रनामस्तोत्रम् ॥</div>
 
-			<FullVishnuSahasranam data={realData} />
+			<FullVishnuSahasranam
+				data={realData}
+				saveAndPlayAudio={saveAndPlayAudio}
+				playAudio={playAudio}
+			/>
 			<div
 				onClick={() => handleContainerClick(realData)}
 				className={`main ${

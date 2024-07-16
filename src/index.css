@@ -151,7 +151,7 @@ body{
 /* Responsive design */
 @media (max-width: 600px) {
   body{
-    overflow: hidden ; 
+    overflow-x: hidden ; 
   }
 .container{
   flex: flex-start;
