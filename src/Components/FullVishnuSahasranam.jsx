@@ -3,12 +3,15 @@ import PropTypes from "prop-types"
 import {IoMdPause} from "react-icons/io"
 import {FaMusic} from "react-icons/fa"
 
+const CHUNK_SIZE = 1024 * 1024 // 1MB chunk size for fetching
+
 const FullVishnuSahasranam = ({data}) => {
 	const [currentLyric, setCurrentLyric] = useState([])
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [active, setActive] = useState(false)
 	const [isEnded, setEnded] = useState(false)
 	const [audioUrl, setAudioUrl] = useState(null)
+	const [isFetching, setIsFetching] = useState(false)
 	const isAnyPlayTrue = data.some(
 		(item) => item.play === true || item.repeat === true
 	)
@@ -824,8 +827,6 @@ const FullVishnuSahasranam = ({data}) => {
 			text: ["हरये नमः | हरये नमः | हरये नमः |"],
 		},
 	]
-	// Your lyrics data here
-
 	const openDatabase = () => {
 		return new Promise((resolve, reject) => {
 			const request = indexedDB.open("AudioDatabase", 1)
@@ -864,15 +865,31 @@ const FullVishnuSahasranam = ({data}) => {
 		})
 	}
 
-	const saveAudio = async (id, url) => {
+	const fetchAndStoreAudioInChunks = async (id, url) => {
 		try {
 			const response = await fetch(url)
-			const audioData = await response.arrayBuffer()
+			const contentLength = response.headers.get("content-length")
+			const totalChunks = Math.ceil(contentLength / CHUNK_SIZE)
 
 			const db = await openDatabase()
 			const transaction = db.transaction(["audioChunks"], "readwrite")
 			const store = transaction.objectStore("audioChunks")
-			store.put({id, audioData})
+
+			let receivedLength = 0
+			const reader = response.body.getReader()
+			let chunks = []
+
+			while (true) {
+				const {done, value} = await reader.read()
+				if (done) break
+				chunks.push(value)
+				receivedLength += value.length
+
+				if (receivedLength >= CHUNK_SIZE || receivedLength === contentLength) {
+					store.put({id, audioData: new Blob(chunks, {type: "audio/m4a"})})
+					chunks = []
+				}
+			}
 		} catch (error) {
 			console.error("Error saving audio data:", error)
 		}
@@ -893,17 +910,23 @@ const FullVishnuSahasranam = ({data}) => {
 				} else {
 					setAudioUrl(audioFetchUrl)
 					audioRef.current = new Audio(audioFetchUrl)
+					setIsFetching(true)
 
 					// Fetch and save the audio data in the background
-					saveAudio("111", audioFetchUrl)
+					fetchAndStoreAudioInChunks("111", audioFetchUrl).then(() =>
+						setIsFetching(false)
+					)
 				}
 			} catch (error) {
 				console.error("Error initializing audio:", error)
 				setAudioUrl(audioFetchUrl)
 				audioRef.current = new Audio(audioFetchUrl)
+				setIsFetching(true)
 
 				// Fetch and save the audio data in the background
-				saveAudio("111", audioFetchUrl)
+				fetchAndStoreAudioInChunks("111", audioFetchUrl).then(() =>
+					setIsFetching(false)
+				)
 			}
 		}
 
