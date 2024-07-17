@@ -98,13 +98,14 @@ function V() {
 
 			request.onsuccess = async (event) => {
 				if (event.target.result) {
-					if (id !== "111") {
-						//coming from FV
-						// Audio already exists, play it
-						playAudio(event.target.result.audioData, repeat)
-					}
+					//coming from FV
+					// Audio already exists, play it
+					playAudio(event.target.result.audioData, repeat)
 				} else {
-					// Fetch audio, store it, and then play it
+					// Play audio directly from URL
+					playAudio(url, repeat)
+
+					// Fetch audio and store it in the background
 					const response = await fetch(url)
 					if (response.ok) {
 						const audioData = await response.arrayBuffer()
@@ -112,30 +113,46 @@ function V() {
 						const newStore = newTransaction.objectStore("audioChunks")
 						newStore.put({id, audioData})
 
-						//FV is coming from fullVS file where if true we just want to save the data to indexdb
-						newTransaction.oncomplete = () => playAudio(audioData, repeat)
-						newTransaction.onerror = (event) =>
+						newTransaction.onerror = (event) => {
 							console.error("IndexedDB write error:", event.target.error)
+						}
+					} else {
+						console.error("Error fetching audio from URL")
 					}
 				}
 			}
-			request.onerror = (event) =>
+
+			request.onerror = (event) => {
 				console.error("IndexedDB read error:", event.target.error)
+			}
 		} catch (error) {
 			console.error("Error fetching audio:", error)
 		}
 	}
-
+	const isValidUrl = (string) => {
+		try {
+			new URL(string)
+			return true
+		} catch (e) {
+			return false
+		}
+	}
 	const playAudio = (audioData, repeat) => {
-		const audioBlob = new Blob([audioData], {type: "audio/m4a"})
-		const audioUrl = URL.createObjectURL(audioBlob)
-		audioRef.current = new Audio(audioUrl)
+		const isURL = isValidUrl(audioData)
+		if (isURL) {
+			audioRef.current = new Audio(audioData)
+		} else {
+			const audioBlob = new Blob([audioData], {type: "audio/m4a"})
+			const audioUrl = URL.createObjectURL(audioBlob)
+			audioRef.current = new Audio(audioUrl)
+		}
 
 		if (repeat) {
 			audioRef.current.loop = true
 		} else {
 			//when the audio ends
 			audioRef.current.onended = function () {
+				setPlaying(false)
 				setRealdata(
 					realData.map((verseData, index) => {
 						return {...verseData, play: false}
@@ -147,6 +164,7 @@ function V() {
 			.play()
 			.catch((error) => console.error("Error playing audio:", error))
 	}
+
 	const handleRepeat = (versenumber, ind, path) => {
 		setPlaying(false)
 		setRepeat(!repeat)
