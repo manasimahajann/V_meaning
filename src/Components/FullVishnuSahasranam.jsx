@@ -824,6 +824,7 @@ const FullVishnuSahasranam = ({data}) => {
 			text: ["हरये नमः | हरये नमः | हरये नमः |"],
 		},
 	]
+	// Your lyrics data here
 
 	const openDatabase = () => {
 		return new Promise((resolve, reject) => {
@@ -864,56 +865,45 @@ const FullVishnuSahasranam = ({data}) => {
 	}
 
 	const saveAudio = async (id, url) => {
-		const response = await fetch(url)
-		const audioData = await response.arrayBuffer()
+		try {
+			const response = await fetch(url)
+			const audioData = await response.arrayBuffer()
 
-		const db = await openDatabase()
-		const transaction = db.transaction(["audioChunks"], "readwrite")
-		const store = transaction.objectStore("audioChunks")
-		store.put({id, audioData})
+			const db = await openDatabase()
+			const transaction = db.transaction(["audioChunks"], "readwrite")
+			const store = transaction.objectStore("audioChunks")
+			store.put({id, audioData})
+		} catch (error) {
+			console.error("Error saving audio data:", error)
+		}
 	}
 
 	useEffect(() => {
 		const initializeAudio = async () => {
-			const timeout = 5000 // 5 seconds timeout for fetching audio data
 			const audioFetchUrl =
 				"https://testapi1test.blob.core.windows.net/media/0.m4a"
 
-			const fetchAudioData = async () => {
-				return new Promise(async (resolve, reject) => {
-					try {
-						let data = await fetchData("111")
-						if (!data) {
-							await saveAudio("111", audioFetchUrl)
-							data = await fetchData("111")
-						}
-						resolve(data)
-					} catch (error) {
-						reject(error)
-					}
-				})
-			}
-
-			const timeoutPromise = new Promise((resolve, reject) => {
-				setTimeout(
-					() => reject(new Error("Fetch audio data timed out")),
-					timeout
-				)
-			})
-
 			try {
-				const data = await Promise.race([fetchAudioData(), timeoutPromise])
-				const audioBlob = new Blob([data.audioData], {type: "audio/m4a"})
-				const url = URL.createObjectURL(audioBlob)
-				setAudioUrl(url)
-				audioRef.current = new Audio(url)
+				const data = await fetchData("111")
+				if (data) {
+					const audioBlob = new Blob([data.audioData], {type: "audio/m4a"})
+					const url = URL.createObjectURL(audioBlob)
+					setAudioUrl(url)
+					audioRef.current = new Audio(url)
+				} else {
+					setAudioUrl(audioFetchUrl)
+					audioRef.current = new Audio(audioFetchUrl)
+
+					// Fetch and save the audio data in the background
+					saveAudio("111", audioFetchUrl)
+				}
 			} catch (error) {
-				console.error(
-					"Error initializing audio or fetch timed out, using direct URL:",
-					error
-				)
+				console.error("Error initializing audio:", error)
 				setAudioUrl(audioFetchUrl)
 				audioRef.current = new Audio(audioFetchUrl)
+
+				// Fetch and save the audio data in the background
+				saveAudio("111", audioFetchUrl)
 			}
 		}
 
