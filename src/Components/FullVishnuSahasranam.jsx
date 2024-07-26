@@ -876,37 +876,48 @@ const FullVishnuSahasranam = ({data}) => {
 			console.error("Error saving audio data:", error)
 		}
 	}
-
-	useEffect(() => {
-		const initializeAudio = async () => {
-			const audioFetchUrl =
+	const fetchOnOFFLineData = async () => {
+		if (!navigator.onLine) {
+			console.warn("You are offline. Please connect to the internet.")
+			return
+		}
+		try {
+			const audioFetchUrl = await fetch(
 				"https://testapi1test.blob.core.windows.net/media/0.m4a"
+			)
+			if (audioFetchUrl.ok) {
+				try {
+					const data = await fetchData("111")
+					if (data) {
+						const audioBlob = new Blob([data.audioData], {type: "audio/m4a"})
+						const url = URL.createObjectURL(audioBlob)
+						setAudioUrl(url)
+						audioRef.current = new Audio(url)
+					} else {
+						setAudioUrl(audioFetchUrl)
+						audioRef.current = new Audio(audioFetchUrl)
 
-			try {
-				const data = await fetchData("111")
-				if (data) {
-					const audioBlob = new Blob([data.audioData], {type: "audio/m4a"})
-					const url = URL.createObjectURL(audioBlob)
-					setAudioUrl(url)
-					audioRef.current = new Audio(url)
-				} else {
+						// Fetch and save the audio data in the background
+						saveAudio("111", audioFetchUrl)
+					}
+				} catch (error) {
+					console.error("Error initializing audio:", error)
 					setAudioUrl(audioFetchUrl)
 					audioRef.current = new Audio(audioFetchUrl)
 
 					// Fetch and save the audio data in the background
 					saveAudio("111", audioFetchUrl)
 				}
-			} catch (error) {
-				console.error("Error initializing audio:", error)
-				setAudioUrl(audioFetchUrl)
-				audioRef.current = new Audio(audioFetchUrl)
-
-				// Fetch and save the audio data in the background
-				saveAudio("111", audioFetchUrl)
+			} else {
+				console.error("Network response was not ok.")
 			}
+		} catch (error) {
+			console.error("Fetch error:", error)
 		}
+	}
 
-		initializeAudio()
+	useEffect(() => {
+		fetchOnOFFLineData()
 	}, [])
 
 	useEffect(() => {

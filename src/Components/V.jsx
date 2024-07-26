@@ -24,6 +24,31 @@ function V() {
 
 	const [isDbOpen, setIsDbOpen] = useState(false)
 
+	const fetchOnOFFLineData = async () => {
+		if (!navigator.onLine) {
+			console.warn("You are offline. Please connect to the internet.")
+			return
+		}
+		if (navigator.onLine) {
+			try {
+				const response = await fetch(
+					"https://testapi1test.blob.core.windows.net/media/VishnuSahasranam.json"
+				)
+				if (response.ok) {
+					const data = await response.json()
+					// Process data
+					setRealdata(data)
+					// Store data in local storage
+					localStorage.setItem("cachedData", JSON.stringify(data))
+				} else {
+					console.error("Network response was not ok.")
+				}
+			} catch (error) {
+				console.error("Fetch error:", error)
+			}
+		}
+	}
+
 	useEffect(() => {
 		openDatabase()
 			.then(() => setIsDbOpen(true))
@@ -37,16 +62,7 @@ function V() {
 			setRealdata(JSON.parse(cachedData))
 		} else {
 			// Fetch and save data if not cached
-			fetch(
-				"https://testapi1test.blob.core.windows.net/media/VishnuSahasranam.json"
-			)
-				.then((response) => response.json())
-				.then((data) => {
-					setRealdata(data)
-					// Store data in local storage
-					localStorage.setItem("cachedData", JSON.stringify(data))
-				})
-				.catch((error) => console.error("Fetch error:", error))
+			fetchOnOFFLineData()
 		}
 	}, [])
 	// Open or create IndexedDB database
