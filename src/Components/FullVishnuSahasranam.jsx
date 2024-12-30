@@ -7,15 +7,14 @@ const FullVishnuSahasranam = ({data}) => {
 	const [currentLyric, setCurrentLyric] = useState([])
 	const [isPlaying, setIsPlaying] = useState(false)
 	const [active, setActive] = useState(false)
-	const [isEnded, setEnded] = useState(false)
-	const [audioUrl, setAudioUrl] = useState(null)
-	const isAnyPlayTrue = data.some(
-		(item) => item.play === true || item.repeat === true
-	)
-	const audioRef = useRef(null)
-
+	const isAnyPlayTrue = data.some((item) => item.play === true)
+	const isAnyRepeatTrue = data.some((item) => item.repeat === true)
 	const lyricsData = [
-		{time: 0, text: ["शंख नाद ..."]},
+		{
+			time: 0,
+			text: ["॥ श्रीविष्णुसहस्रनामस्तोत्रम् ॥", "(स्वामी वरदानंद भारती)"],
+		},
+		{time: 1, text: ["शंख नाद ..."]},
 		{
 			time: 4.5,
 			text: [
@@ -824,127 +823,34 @@ const FullVishnuSahasranam = ({data}) => {
 			text: ["हरये नमः | हरये नमः | हरये नमः |"],
 		},
 	]
+	const audioRef = useRef(
+		new Audio("https://vishnusahasranam.blob.core.windows.net/media/0.m4a")
+	)
 
-	const openDatabase = () => {
-		return new Promise((resolve, reject) => {
-			const request = indexedDB.open("AudioDatabase", 1)
+	useEffect(() => {
+		const audioElement = audioRef.current
 
-			request.onupgradeneeded = (event) => {
-				const db = event.target.result
-				if (!db.objectStoreNames.contains("audioChunks")) {
-					db.createObjectStore("audioChunks", {keyPath: "id"})
-				}
-			}
+		const handleTimeUpdate = () => {
+			const currentTime = audioElement.currentTime
 
-			request.onsuccess = (event) => {
-				resolve(event.target.result)
-			}
-
-			request.onerror = (event) => {
-				reject(event.target.error)
-			}
-		})
-	}
-
-	const fetchData = async (id) => {
-		const db = await openDatabase()
-		return new Promise((resolve, reject) => {
-			const transaction = db.transaction(["audioChunks"], "readonly")
-			const store = transaction.objectStore("audioChunks")
-			const request = store.get(id)
-
-			request.onsuccess = (event) => {
-				resolve(event.target.result)
-			}
-
-			request.onerror = (event) => {
-				reject(event.target.error)
-			}
-		})
-	}
-
-	const saveAudio = async (id, url) => {
-		try {
-			const response = await fetch(url)
-			const audioData = await response.arrayBuffer()
-
-			const db = await openDatabase()
-			const transaction = db.transaction(["audioChunks"], "readwrite")
-			const store = transaction.objectStore("audioChunks")
-			store.put({id, audioData})
-		} catch (error) {
-			console.error("Error saving audio data:", error)
-		}
-	}
-	const fetchOnOFFLineData = async () => {
-		if (!navigator.onLine) {
-			console.warn("You are offline. Please connect to the internet.")
-			return
-		}
-		try {
-			const audioFetchUrl = await fetch(
-				"https://testapi1test.blob.core.windows.net/media/0.m4a"
+			const currentLyricData = lyricsData.find(
+				(lyric, index) =>
+					currentTime >= lyric.time &&
+					(index === lyricsData.length - 1 ||
+						currentTime < lyricsData[index + 1].time)
 			)
-			if (audioFetchUrl.ok) {
-				try {
-					const data = await fetchData("111")
-					if (data) {
-						const audioBlob = new Blob([data.audioData], {type: "audio/m4a"})
-						const url = URL.createObjectURL(audioBlob)
-						setAudioUrl(url)
-						audioRef.current = new Audio(url)
-					} else {
-						setAudioUrl(audioFetchUrl)
-						audioRef.current = new Audio(audioFetchUrl)
 
-						// Fetch and save the audio data in the background
-						saveAudio("111", audioFetchUrl)
-					}
-				} catch (error) {
-					console.error("Error initializing audio:", error)
-					setAudioUrl(audioFetchUrl)
-					audioRef.current = new Audio(audioFetchUrl)
-
-					// Fetch and save the audio data in the background
-					saveAudio("111", audioFetchUrl)
-				}
-			} else {
-				console.error("Network response was not ok.")
+			if (currentLyricData) {
+				setCurrentLyric(currentLyricData.text)
 			}
-		} catch (error) {
-			console.error("Fetch error:", error)
 		}
-	}
 
-	useEffect(() => {
-		fetchOnOFFLineData()
+		audioElement.addEventListener("timeupdate", handleTimeUpdate)
+
+		return () => {
+			audioElement.removeEventListener("timeupdate", handleTimeUpdate)
+		}
 	}, [])
-
-	useEffect(() => {
-		if (audioRef.current) {
-			const audioElement = audioRef.current
-
-			const handleTimeUpdate = () => {
-				const currentTime = audioElement.currentTime
-				const currentLyricData = lyricsData.find(
-					(lyric, index) =>
-						currentTime >= lyric.time &&
-						(index === lyricsData.length - 1 ||
-							currentTime < lyricsData[index + 1].time)
-				)
-
-				if (currentLyricData) {
-					setCurrentLyric(currentLyricData.text)
-				}
-			}
-
-			audioElement.addEventListener("timeupdate", handleTimeUpdate)
-
-			return () => {
-				audioElement.removeEventListener("timeupdate", handleTimeUpdate)
-			}
-		}
-	}, [audioRef.current])
 
 	const handlePlayPause = () => {
 		const audioElement = audioRef.current
@@ -953,49 +859,43 @@ const FullVishnuSahasranam = ({data}) => {
 			audioElement.pause()
 			audioElement.currentTime = 0 // Reset the audio to the beginning
 			setIsPlaying(false)
-			setEnded(true)
+
+			setActive(false)
 		} else {
-			setEnded(false)
 			audioElement.play()
-			setIsPlaying(true)
 		}
 
 		setIsPlaying(!isPlaying)
 		setActive(!active) // Toggle active state
-
-		audioElement.onended = () => {
+		//end of the audio
+		audioRef.current.onended = function () {
 			setIsPlaying(false)
 			setActive(false)
-			setEnded(true)
 		}
 	}
 
 	return (
 		<div className={`main ${isPlaying ? "fullscreen" : ""}`}>
-			{audioUrl && <audio ref={audioRef} src={audioUrl} />}
+			<audio src="https://testapi1test.blob.core.windows.net/media/0.m4a"></audio>
 
 			<div
 				className={`item flex flex-col gap-3 lyrics ${
 					active ? "selected" : ""
-				} ${isAnyPlayTrue ? "blurred" : ""}`}
+				} ${isAnyPlayTrue || isAnyRepeatTrue ? "blurred" : ""}`}
 			>
-				{currentLyric.length === 0 || isEnded ? (
+				{currentLyric.length === 0 ? (
 					<div className="m-auto">
 						<p>॥ श्रीविष्णुसहस्रनामस्तोत्रम् ॥</p>
 						<p>&nbsp;&nbsp;&nbsp;(स्वामी वरदानंद भारती)</p>
 					</div>
 				) : (
 					currentLyric.map((line, index) => (
-						<div className="m-auto h-[90%]" key={index}>
+						<div className="m-auto h-[90%] " key={index}>
 							<p key={index}>{line}</p>
 						</div>
 					))
 				)}
-				<button
-					onClick={handlePlayPause}
-					className="mb-1 h-[10%] self-center"
-					disabled={isAnyPlayTrue}
-				>
+				<button onClick={handlePlayPause} className="mb-1 h-[10%] self-center">
 					{isPlaying ? <IoMdPause /> : <FaMusic />}
 				</button>
 			</div>
@@ -1016,5 +916,4 @@ FullVishnuSahasranam.propTypes = {
 		})
 	).isRequired,
 }
-
 export default FullVishnuSahasranam

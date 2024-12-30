@@ -32,7 +32,7 @@ function V() {
 		if (navigator.onLine) {
 			try {
 				const response = await fetch(
-					"https://testapi1test.blob.core.windows.net/media/VishnuSahasranam.json"
+					"https://vishnusahasranam.blob.core.windows.net/media/VishnuSahasranam.json"
 				)
 				if (response.ok) {
 					const data = await response.json()
@@ -64,7 +64,41 @@ function V() {
 			// Fetch and save data if not cached
 			fetchOnOFFLineData()
 		}
+
+		clearExcessAudioChunks()
 	}, [])
+
+	const clearExcessAudioChunks = async () => {
+		try {
+			// Open the database
+			const db = await openDatabase() // Assuming you have a function to open the IndexedDB
+
+			const transaction = db.transaction(["audioChunks"], "readwrite")
+			const store = transaction.objectStore("audioChunks")
+
+			// Count the number of entries in the store
+			const countRequest = store.count()
+
+			countRequest.onsuccess = () => {
+				if (countRequest.result > 20) {
+					// Clear all data if there are more than 20 entry
+					store.clear()
+					console.log("All audio chunks cleared from the store.")
+				} else {
+					console.log(
+						"No need to clear audio chunks. Store has 20 or fewer entries."
+					)
+				}
+			}
+
+			countRequest.onerror = (event) => {
+				console.error("Error counting audio chunks:", event.target.error)
+			}
+		} catch (error) {
+			console.error("Error clearing excess audio chunks:", error)
+		}
+	}
+
 	// Open or create IndexedDB database
 	const openDatabase = () => {
 		return new Promise((resolve, reject) => {
