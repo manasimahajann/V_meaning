@@ -7,7 +7,6 @@ import {BsArrowRepeat} from "react-icons/bs"
 import {IconContext} from "react-icons"
 import "../index.css"
 import {useRef} from "react"
-import axios from "axios"
 import FullVishnuSahasranam from "./FullVishnuSahasranam"
 
 const dbName = "AudioDatabase"
@@ -50,6 +49,7 @@ function V() {
 	}
 
 	useEffect(() => {
+		localStorage.clear()
 		openDatabase()
 			.then(() => setIsDbOpen(true))
 			.catch((error) => console.error("Error opening database:", error))
@@ -68,6 +68,15 @@ function V() {
 		clearExcessAudioChunks()
 	}, [])
 
+	useEffect(() => {
+		if (audioRef.current) {
+			console.log("Audio has ended.")
+			setPlaying(false)
+			setRepeat(false)
+			setSelectedItem(null)
+		}
+	}, [audioRef.current])
+
 	const clearExcessAudioChunks = async () => {
 		try {
 			// Open the database
@@ -84,11 +93,12 @@ function V() {
 					// Clear all data if there are more than 20 entry
 					store.clear()
 					console.log("All audio chunks cleared from the store.")
-				} else {
-					console.log(
-						"No need to clear audio chunks. Store has 20 or fewer entries."
-					)
 				}
+				// else {
+				// 	console.log(
+				// 		"No need to clear audio chunks. Store has 20 or fewer entries."
+				// 	)
+				// }
 			}
 
 			countRequest.onerror = (event) => {
