@@ -9,9 +9,6 @@ import "../index.css"
 import {useRef} from "react"
 import FullVishnuSahasranam from "./FullVishnuSahasranam"
 
-const dbName = "AudioDatabase"
-const dbVersion = 1
-let db
 function V() {
 	const [realData, setRealdata] = useState([])
 
@@ -20,8 +17,6 @@ function V() {
 	const [playing, setPlaying] = useState(false)
 	const [repeat, setRepeat] = useState(false)
 	const audioRef = useRef(null)
-
-	const [isDbOpen, setIsDbOpen] = useState(false)
 
 	const fetchOnOFFLineData = async () => {
 		if (!navigator.onLine) {
@@ -50,9 +45,7 @@ function V() {
 
 	useEffect(() => {
 		localStorage.clear()
-		openDatabase()
-			.then(() => setIsDbOpen(true))
-			.catch((error) => console.error("Error opening database:", error))
+
 		// Check if data exists in local storage
 
 		const cachedData = localStorage.getItem("cachedData")
@@ -64,71 +57,8 @@ function V() {
 			// Fetch and save data if not cached
 			fetchOnOFFLineData()
 		}
-
-		clearExcessAudioChunks()
 	}, [])
 
-	useEffect(() => {
-		if (audioRef.current) {
-			console.log("Audio has ended.")
-			setPlaying(false)
-			setRepeat(false)
-			setSelectedItem(null)
-		}
-	}, [audioRef.current])
-
-	const clearExcessAudioChunks = async () => {
-		try {
-			// Open the database
-			const db = await openDatabase() // Assuming you have a function to open the IndexedDB
-
-			const transaction = db.transaction(["audioChunks"], "readwrite")
-			const store = transaction.objectStore("audioChunks")
-
-			// Count the number of entries in the store
-			const countRequest = store.count()
-
-			countRequest.onsuccess = () => {
-				if (countRequest.result > 20) {
-					// Clear all data if there are more than 20 entry
-					store.clear()
-					console.log("All audio chunks cleared from the store.")
-				}
-				// else {
-				// 	console.log(
-				// 		"No need to clear audio chunks. Store has 20 or fewer entries."
-				// 	)
-				// }
-			}
-
-			countRequest.onerror = (event) => {
-				console.error("Error counting audio chunks:", event.target.error)
-			}
-		} catch (error) {
-			console.error("Error clearing excess audio chunks:", error)
-		}
-	}
-
-	// Open or create IndexedDB database
-	const openDatabase = () => {
-		return new Promise((resolve, reject) => {
-			const request = indexedDB.open(dbName, dbVersion)
-
-			request.onerror = (event) =>
-				reject(`IndexedDB error: ${event.target.errorCode}`)
-
-			request.onsuccess = (event) => {
-				db = event.target.result
-
-				resolve(db)
-			}
-
-			request.onupgradeneeded = (event) => {
-				db = event.target.result
-				db.createObjectStore("audioChunks", {keyPath: "id"})
-			}
-		})
-	}
 	// Use map function here
 	const verses = realData.map((verseData, index) => {
 		const words = verseData.verse.split(/\s+/)
@@ -146,45 +76,10 @@ function V() {
 	})
 
 	// Fetch, save, and play audio from URL
-	const saveAndPlayAudio = async (id, url, repeat = false) => {
+	const saveAndPlayAudio = async (url, repeat = false) => {
 		try {
-			if (!isDbOpen || !db) {
-				console.log("Error initializing the db")
-			}
-
-			const transaction = db.transaction(["audioChunks"], "readwrite")
-			const store = transaction.objectStore("audioChunks")
-			const request = store.get(id)
-
-			request.onsuccess = async (event) => {
-				if (event.target.result) {
-					//coming from FV
-					// Audio already exists, play it
-					playAudio(event.target.result.audioData, repeat)
-				} else {
-					// Play audio directly from URL
-					playAudio(url, repeat)
-
-					// Fetch audio and store it in the background
-					const response = await fetch(url)
-					if (response.ok) {
-						const audioData = await response.arrayBuffer()
-						const newTransaction = db.transaction(["audioChunks"], "readwrite")
-						const newStore = newTransaction.objectStore("audioChunks")
-						newStore.put({id, audioData})
-
-						newTransaction.onerror = (event) => {
-							console.error("IndexedDB write error:", event.target.error)
-						}
-					} else {
-						console.error("Error fetching audio from URL")
-					}
-				}
-			}
-
-			request.onerror = (event) => {
-				console.error("IndexedDB read error:", event.target.error)
-			}
+			// Play audio directly from URL
+			playAudio(url, repeat)
 		} catch (error) {
 			console.error("Error fetching audio:", error)
 		}
@@ -194,17 +89,13 @@ function V() {
 			new URL(string)
 			return true
 		} catch (e) {
-			return false
+			return true
 		}
 	}
 	const playAudio = (audioData, repeat) => {
 		const isURL = isValidUrl(audioData)
 		if (isURL) {
 			audioRef.current = new Audio(audioData)
-		} else {
-			const audioBlob = new Blob([audioData], {type: "audio/m4a"})
-			const audioUrl = URL.createObjectURL(audioBlob)
-			audioRef.current = new Audio(audioUrl)
 		}
 
 		if (repeat) {
@@ -212,7 +103,10 @@ function V() {
 		} else {
 			//when the audio ends
 			audioRef.current.onended = function () {
+				console.log("Audio has ended")
 				setPlaying(false)
+				setRepeat(false)
+				setSelectedItem(null)
 				setRealdata(
 					realData.map((verseData, index) => {
 						return {...verseData, play: false}
@@ -244,11 +138,12 @@ function V() {
 		if (repeat === false && playing === false) {
 			// playAudio(path, true)
 
-			saveAndPlayAudio(ind, path, true)
+			saveAndPlayAudio(path, true)
 		} else {
 			//console.log("stop repeating...")
 			setPlaying(false)
 			setRepeat(false)
+			setSelectedItem(null)
 			stopAudio(path)
 		}
 	}
@@ -273,11 +168,13 @@ function V() {
 		})
 
 		if (playing === false && repeat === false) {
-			saveAndPlayAudio(ind, path, false)
+			saveAndPlayAudio(path, false)
 		} else {
 			// console.log("stop playing...")
 			setPlaying(false)
 			setRepeat(false)
+			setSelectedItem(null)
+
 			stopAudio(path)
 		}
 	}
