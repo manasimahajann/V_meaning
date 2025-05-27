@@ -823,9 +823,7 @@ const FullVishnuSahasranam = ({data}) => {
 			text: ["हरये नमः | हरये नमः | हरये नमः |"],
 		},
 	]
-	const audioRef = useRef(
-		new Audio("https://vishnusahasranam.blob.core.windows.net/media/0.m4a")
-	)
+	const audioRef = useRef(new Audio("/media/0.m4a"))
 
 	useEffect(() => {
 		const audioElement = audioRef.current
