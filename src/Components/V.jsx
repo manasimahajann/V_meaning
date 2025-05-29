@@ -25,7 +25,10 @@ function V() {
 		}
 		if (navigator.onLine) {
 			try {
-				const response = await fetch("/media/data1.json")
+				const response = await fetch(
+					`${import.meta.env.BASE_URL}media/data1.json`
+				)
+
 				if (response.ok) {
 					const data = await response.json()
 					// Process data

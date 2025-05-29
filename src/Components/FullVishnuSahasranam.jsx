@@ -823,7 +823,9 @@ const FullVishnuSahasranam = ({data}) => {
 			text: ["हरये नमः | हरये नमः | हरये नमः |"],
 		},
 	]
-	const audioRef = useRef(new Audio("/media/0.m4a"))
+	const audioRef = useRef(
+		new Audio("https://manasimahajann.github.io/V_meaning/media/0.m4a")
+	)
 
 	useEffect(() => {
 		const audioElement = audioRef.current
@@ -874,8 +876,6 @@ const FullVishnuSahasranam = ({data}) => {
 
 	return (
 		<div className={`main ${isPlaying ? "fullscreen" : ""}`}>
-			<audio src="https://testapi1test.blob.core.windows.net/media/0.m4a"></audio>
-
 			<div
 				className={`item flex flex-col gap-3 lyrics ${
 					active ? "selected" : ""
